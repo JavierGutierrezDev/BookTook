@@ -19,6 +19,14 @@ struct ContentView: View {
             List{
                 ForEach(books){ book in
                     HStack{
+                        if let dataImage = book.image,
+                           let uiImage = UIImage(data: dataImage){
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                
+                        }
                         VStack(alignment: .leading){
                             
                             Text(book.title)
@@ -30,6 +38,8 @@ struct ContentView: View {
                             
                             Text(book.bookDescription)
                                 .font(.caption)
+                            
+                            
                             
                         }
                         .swipeActions{
@@ -71,7 +81,7 @@ struct ContentView: View {
             .sheet(item: $editBook, onDismiss: {
                 editBook = nil
             }) { editBook in
-                UpdateBookView( book: editBook)
+                UpdateBookView(  book: editBook)
             }
             
 
